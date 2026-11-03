@@ -1,0 +1,70 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.480
+Here is the short version, a forward deployment engineer takes something that works, and makes
+
+00:00:05.480 --> 00:00:11.120
+it work there, inside a specific business, with its own data, its own processes and its
+
+00:00:11.120 --> 00:00:16.880
+own people, working software and adopted software are not the same thing, and this job exists
+
+00:00:16.880 --> 00:00:18.800
+in the gap between them.
+
+00:00:18.800 --> 00:00:22.160
+It is not support, and it is not consulting.
+
+00:00:22.160 --> 00:00:26.480
+Support fixes what is broken, consulting advises and leaves.
+
+00:00:26.480 --> 00:00:31.040
+Support deployment builds the last mile, and the last mile is usually longer than the rest
+
+00:00:31.040 --> 00:00:32.320
+of the road.
+
+00:00:32.320 --> 00:00:37.600
+In the first two weeks, you learn the real process, not the documented one, sit with
+
+00:00:37.600 --> 00:00:42.040
+the people doing the work and watch what they actually do, including the spreadsheet they
+
+00:00:42.040 --> 00:00:45.960
+keep on the side because the official system is too slow.
+
+00:00:45.960 --> 00:00:51.880
+From week three to week six, you make it fit, data mapping, edge cases, and the integration
+
+00:00:51.880 --> 00:00:53.380
+nobody scoped.
+
+00:00:53.380 --> 00:00:58.460
+This is where most of the engineering happens, and almost none of it is glamorous.
+
+00:00:58.460 --> 00:01:03.300
+From week six onward, you earn the handover, train the people who will own it, write down
+
+00:01:03.300 --> 00:01:08.420
+what breaks and how to tell, a deployment that depends on you is not finished.
+
+00:01:08.420 --> 00:01:13.740
+Most of the difficulty is not technical, you are asking a busy team to change how they work,
+
+00:01:13.740 --> 00:01:18.220
+on the strength of a promise from someone they met last month, that is a trust problem
+
+00:01:18.220 --> 00:01:20.460
+before it is an engineering problem.
+
+00:01:20.460 --> 00:01:24.660
+The best forward deployment engineers are unusually good listeners.
+
+00:01:24.660 --> 00:01:26.420
+Why do I like the job?
+
+00:01:26.420 --> 00:01:30.580
+Because you find out whether the thing was actually good, a model that scores well and is never
+
+00:01:30.580 --> 00:01:35.780
+used has taught you nothing, real people, doing real work, will tell you the truth.

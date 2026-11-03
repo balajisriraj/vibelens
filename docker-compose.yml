@@ -1,0 +1,19 @@
+# API + web UI on http://localhost:8080. Videos, transcripts and the index persist in the `tapes` volume.
+#   cp .env.example .env   # add ANTHROPIC_API_KEY, or set VIBELENS_LLM=scripted to run offline
+#   docker compose up --build
+services:
+  api:
+    build: ./backend
+    env_file: .env
+    environment:
+      VIBELENS_CORS_ORIGINS: '["http://localhost:8080"]'
+    volumes: [tapes:/app/data]
+
+  web:
+    build: ./frontend
+    ports: ["8080:80"]
+    depends_on:
+      api: { condition: service_healthy }
+
+volumes:
+  tapes:

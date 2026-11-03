@@ -1,0 +1,27 @@
+# Questions about the bundled sample talk. `at` is where the answer is spoken, in m:ss.
+# A cited timestamp must land within `tolerance` seconds of it (default 6): citation accuracy to the second.
+- id: definition
+  question: What does a forward deployment engineer actually do?
+  at: "0:00"
+- id: not-support
+  question: How is it different from support and consulting?
+  at: "0:19"
+- id: first-weeks
+  question: What should you do in the first two weeks?
+  at: "0:32"
+- id: make-it-fit
+  question: What happens between week three and week six?
+  at: "0:46"
+- id: handover
+  question: When is a deployment finished, and what about the handover?
+  at: "0:58"
+- id: trust
+  question: Why is the hardest part a trust problem rather than an engineering problem?
+  at: "1:08"
+- id: why-like
+  question: Why does the speaker like the job? What does a model that is never used teach you?
+  at: "1:25"
+  tolerance: 10
+- id: off-topic
+  question: What is the recipe for a good lasagne?
+  uncited: true
