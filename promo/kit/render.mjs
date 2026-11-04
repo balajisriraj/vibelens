@@ -3,7 +3,8 @@
 //   node promo/kit/render.mjs [--fps 30] [--preview 12.5] [--music track.wav]
 //
 // Reads promo/film.ts (the timeline) and promo/out/snaps/*.html (from promo/capture.mjs). Writes
-// promo/out/<name>-promo.mp4 (1080p), promo/out/<name>-poster.jpg and docs/<name>-promo.mp4 (web size, for the README).
+// promo/out/<name>-promo.mp4 (1080p), promo/out/<name>-poster.jpg and
+// promo/out/<name>-promo-web.mp4 (web size: upload it to the README on github.com).
 import { execFileSync, spawn } from "node:child_process";
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -12,7 +13,6 @@ import puppeteer from "puppeteer-core";
 
 const PROMO = resolve(import.meta.dirname, "..");
 const OUT = resolve(PROMO, "out");
-const DOCS = resolve(PROMO, "../docs");
 const arg = (name) => {
   const i = process.argv.indexOf(`--${name}`);
   return i > 0 ? process.argv[i + 1] : undefined;
@@ -72,7 +72,6 @@ const film = resolve(OUT, `${meta.name}-promo.mp4`);
 execFileSync("ffmpeg", ["-y", "-v", "error", "-i", silent, "-i", track, "-filter_complex", `[1:a]atrim=0:${duration.toFixed(2)},loudnorm=I=-14:TP=-1.2:LRA=11,afade=t=in:d=0.4,afade=t=out:st=${(duration - 2.4).toFixed(2)}:d=2.4[a]`, "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", film]);
 
 // For the README and the portfolio: a web-sized film, and a poster.
-mkdirSync(DOCS, { recursive: true });
-execFileSync("ffmpeg", ["-y", "-v", "error", "-i", film, "-vf", "scale=1280:-2:flags=lanczos", "-c:v", "libx264", "-crf", "26", "-preset", "slow", "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", resolve(DOCS, `${meta.name}-promo.mp4`)]);
+execFileSync("ffmpeg", ["-y", "-v", "error", "-i", film, "-vf", "scale=1280:-2:flags=lanczos", "-c:v", "libx264", "-crf", "26", "-preset", "slow", "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", resolve(OUT, `${meta.name}-promo-web.mp4`)]);
 execFileSync("ffmpeg", ["-y", "-v", "error", "-ss", String(scenes.poster?.[0] ?? marks.reveal ?? 2), "-i", silent, "-frames:v", "1", "-vf", "scale=1280:-2:flags=lanczos", "-q:v", "3", resolve(OUT, `${meta.name}-poster.jpg`)]);
 console.log(JSON.stringify({ name: meta.name, duration: +duration.toFixed(1), marks, scenes }));

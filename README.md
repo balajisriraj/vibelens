@@ -2,8 +2,9 @@
 
 **Watch less. Know more.**
 
-<!-- The film: drag docs/vibelens-promo.mp4 onto the line below in the GitHub editor. -->
+https://github.com/user-attachments/assets/ebdead8a-4611-4699-8903-3da0c78c1659
 
+<sub>▶ The film, with sound (1 min 42 s). <a href="#the-film">How it was made</a>.</sub>
 
 Paste a YouTube link or drop in your own video, audio or caption file. VibeLens produces:
 - a transcript
@@ -12,13 +13,6 @@ Paste a YouTube link or drop in your own video, audio or caption file. VibeLens 
 - a vibe check: format, tone, energy and audience
 
 Then ask it anything. A tool-using agent searches the tape before it answers, and every timestamp in the answer is a button that seeks the player.
-
-
-
-https://github.com/user-attachments/assets/ebdead8a-4611-4699-8903-3da0c78c1659
-
-
-
 
 ## What it shows
 
@@ -128,7 +122,7 @@ The film is made in code, not screen-recorded. `promo/capture.mjs` runs the real
 ```bash
 cd promo && pnpm install
 node capture.mjs        # snapshots of the real UI
-node kit/render.mjs     # the film, in docs/
+node kit/render.mjs     # the film, in promo/out/ (upload the -web.mp4 to the README)
 ```
 
 ## Notes
