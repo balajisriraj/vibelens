@@ -131,6 +131,8 @@ export function makeFilm(theme: Theme) {
     });
 
     let current: HTMLIFrameElement | null = null;
+    /** Inputs a shot has typed into, with the value their snapshot had. */
+    const typed = new Map<HTMLInputElement, string>();
     const snapAt = (v: View, u: number) => {
       if (typeof v.snap === "string") return v.snap;
       let name = v.snap[0][1];
@@ -206,13 +208,22 @@ export function makeFilm(theme: Theme) {
         current = next;
       }
       const d = doc();
+      let typing: HTMLInputElement | null = null;
       if (v.type && u < (v.type.until ?? 1e9)) {
         const el = d.querySelector<HTMLInputElement>(v.type.sel);
         if (el) {
+          if (!typed.has(el)) typed.set(el, el.value);
+          typing = el;
           const n = Math.floor(clamp((u - v.type.from) / (v.type.to - v.type.from)) * v.type.text.length);
           el.value = v.type.text.slice(0, n);
           if (el.tagName === "TEXTAREA") el.textContent = el.value;
         }
+      }
+      // Typing must not leak into later shots of the same snapshot: put back what the snapshot had.
+      for (const [el, orig] of typed) {
+        if (el === typing || el.value === orig) continue;
+        el.value = orig;
+        if (el.tagName === "TEXTAREA") el.textContent = orig;
       }
       if (v.scroll) {
         const el = d.querySelector<HTMLElement>(v.scroll.sel);
