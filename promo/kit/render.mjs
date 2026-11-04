@@ -3,7 +3,7 @@
 //   node promo/kit/render.mjs [--fps 30] [--preview 12.5] [--music track.wav]
 //
 // Reads promo/film.ts (the timeline) and promo/out/snaps/*.html (from promo/capture.mjs). Writes
-// promo/out/<name>-promo.mp4 (1080p), docs/<name>-promo.mp4 (web size) and docs/demo.gif (the teaser).
+// promo/out/<name>-promo.mp4 (1080p), promo/out/<name>-poster.jpg and docs/<name>-promo.mp4 (web size, for the README).
 import { execFileSync, spawn } from "node:child_process";
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -71,13 +71,8 @@ if (!arg("music")) execFileSync("python3", [resolve(PROMO, "kit/score.py"), trac
 const film = resolve(OUT, `${meta.name}-promo.mp4`);
 execFileSync("ffmpeg", ["-y", "-v", "error", "-i", silent, "-i", track, "-filter_complex", `[1:a]atrim=0:${duration.toFixed(2)},loudnorm=I=-14:TP=-1.2:LRA=11,afade=t=in:d=0.4,afade=t=out:st=${(duration - 2.4).toFixed(2)}:d=2.4[a]`, "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", film]);
 
-// For the README and the portfolio: a web-sized film, a poster, and a teaser GIF.
+// For the README and the portfolio: a web-sized film, and a poster.
 mkdirSync(DOCS, { recursive: true });
 execFileSync("ffmpeg", ["-y", "-v", "error", "-i", film, "-vf", "scale=1280:-2:flags=lanczos", "-c:v", "libx264", "-crf", "26", "-preset", "slow", "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", resolve(DOCS, `${meta.name}-promo.mp4`)]);
-execFileSync("ffmpeg", ["-y", "-v", "error", "-ss", String(scenes.poster?.[0] ?? marks.reveal ?? 2), "-i", silent, "-frames:v", "1", "-vf", "scale=1280:-2:flags=lanczos", "-q:v", "3", resolve(DOCS, `${meta.name}-poster.jpg`)]);
-const [from, to] = scenes.teaser;
-const palette = resolve(OUT, "palette.png");
-const vf = `trim=${from.toFixed(2)}:${to.toFixed(2)},setpts=PTS-STARTPTS,fps=12,scale=800:-1:flags=lanczos`;
-execFileSync("ffmpeg", ["-y", "-v", "error", "-i", silent, "-vf", `${vf},palettegen=stats_mode=diff:max_colors=192`, palette]);
-execFileSync("ffmpeg", ["-y", "-v", "error", "-i", silent, "-i", palette, "-lavfi", `${vf}[x];[x][1:v]paletteuse=dither=sierra2_4a:diff_mode=rectangle`, resolve(DOCS, "demo.gif")]);
+execFileSync("ffmpeg", ["-y", "-v", "error", "-ss", String(scenes.poster?.[0] ?? marks.reveal ?? 2), "-i", silent, "-frames:v", "1", "-vf", "scale=1280:-2:flags=lanczos", "-q:v", "3", resolve(OUT, `${meta.name}-poster.jpg`)]);
 console.log(JSON.stringify({ name: meta.name, duration: +duration.toFixed(1), marks, scenes }));
