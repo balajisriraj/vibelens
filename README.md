@@ -13,6 +13,13 @@ Paste a YouTube link or drop in your own video, audio or caption file. VibeLens 
 
 Then ask it anything. A tool-using agent searches the tape before it answers, and every timestamp in the answer is a button that seeks the player.
 
+
+
+https://github.com/user-attachments/assets/ebdead8a-4611-4699-8903-3da0c78c1659
+
+
+
+
 ## What it shows
 
 | | |
